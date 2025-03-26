@@ -1,0 +1,38 @@
+#GNOME 46 to MacOS look -> https://www.pling.com/p/2159316
+
+1 -> sudo apt update && sudo apt dist-upgrade -y
+2 -> sudo apt install curl rsync git gdebi nautilus-admin nautilus-extension-gnome-terminal sassc gnome-tweaks gnome-shell-extension-manager
+3 -> Download resources from url into Download folder
+4 -> cd Download
+5 -> unzip -o gnome-extensions.zip -d $HOME/.local/share/gnome-shell/
+#clone WhiteSur repositories (theme, icons, cursors, backgrounds)
+6 -> cd WhiteSur-gtk-theme && ./install.sh -l -c Light -c Dark -s 180 -m
+7 -> ln -sf "$HOME/.config/gtk-4.0/gtk-Light.css" "$HOME/.config/gtk-4.0/gtk.css"
+8 -> ./tweaks.sh -d
+9 -> cd ../WhiteSur-icon-theme/ && ./install.sh -a -b
+10 -> cd .. && unzip -o fonts.zip -d $HOME/.local/share && sudo unzip -o wallpapers.zip -d /usr/share/backgrounds/
+11 -> sudo apt install neofetch -y && unzip -o neofetch-config.zip -d $HOME/.config/
+12 -> sudo apt install gnome-software gnome-software-plugin-flatpak flatpak libfuse2
+13 -> flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+13 -> flatpak install flathub com.mattjakeman.ExtensionManager
+14 -> sudo flatpak override --filesystem=$HOME/.themes
+15 -> sudo flatpak override --filesystem=$HOME/.local/share/icons
+16 -> sudo flatpak override --filesystem=xdg-config/gtk-4.0
+17 -> sudo apt install plymouth -y
+18 -> sudo unzip -o plymouth-theme.zip -d /usr/share/plymouth/themes
+19 -> sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/macOS/macOS.plymouth 100
+20 -> sudo update-alternatives --config default.plymouth
+21 -> sudo update-initramfs -u
+22 -> unzip ubuntu2404-gnome46-macos-config.zip -d .
+23 -> dconf load / < $HOME/Descargas/gnome46-macos-ubuntu2404.conf
+
+24 -> logout
+
+#Helpers
+-sudo ./tweaks.sh -g -nb -b "Path to image"
+-dconf reset -f /org/gnome/shell/extensions/ubuntu-dock
+-dconf reset -f /org/gnome/shell/extensions/dash-to-dock/
+-sudo apt install gnome-shell-extension-ubuntu-dock
+
+#Dynamic background
+-curl -s https://wallpapers.manishk.dev/install.sh | bash -s Mojave
